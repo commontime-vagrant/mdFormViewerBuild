@@ -1,0 +1,458 @@
+{
+  "name": "app1",
+  "styles": [],
+  "scripts": [],
+  "animation": "full",
+  "theme": "bootsketch",
+  "pages": [
+    {
+      "name": "what",
+      "title": "What?",
+      "navigation": [
+        {
+          "action": "next",
+          "location": "where"
+        }
+      ],
+      "content": [
+        {
+          "name": "tell",
+          "label": "What would you like to tell us?",
+          "type": "question",
+          "item-type": "textarea",
+          "placeholder": "I want to tell you...",
+          "required": true,
+          "message": "Please use 5 or more words",
+          "validators": {
+            "numWords": {
+              "min": 5,
+              "max": 1000000000000
+            }
+          }
+        },
+        {
+          "name": "staticContent2",
+          "type": "content",
+          "item-type": "html",
+          "content": "<p>Some static text</p>"
+        },
+        {
+          "name": "category",
+          "label": "Please select a category",
+          "type": "question",
+          "item-type": "select",
+          "searchable": true,
+          "required": true,
+          "options": [
+            {
+              "value": 1,
+              "label": "Safety"
+            },
+            {
+              "value": 2,
+              "label": "Health"
+            },
+            {
+              "value": 3,
+              "label": "Environmental"
+            }
+          ]
+        },
+        {
+          "name": "subCategory",
+          "label": "Please select a sub-category",
+          "type": "question",
+          "item-type": "select",
+          "required": true,
+          "optionsfilter": {
+            "parentId": "what.category"
+          },
+          "disabled": true,
+          "expressions": {
+            "disabled": "what.category == undefined"
+          },
+          "options": [
+            {
+              "value": 4,
+              "parentId": 1,
+              "label": "Access/site logistics"
+            },
+            {
+              "value": 5,
+              "parentId": 1,
+              "label": "Electrics/lighting"
+            },
+            {
+              "value": 6,
+              "parentId": 1,
+              "label": "Fire, Emergencies"
+            },
+            {
+              "value": 7,
+              "parentId": 2,
+              "label": "Welfare/canteen"
+            },
+            {
+              "value": 8,
+              "parentId": 2,
+              "label": "Health management"
+            },
+            {
+              "value": 9,
+              "parentId": 2,
+              "label": "PPE"
+            },
+            {
+              "value": 10,
+              "parentId": 3,
+              "label": "Noise"
+            },
+            {
+              "value": 11,
+              "parentId": 3,
+              "label": "Dust/Fumes/Mud"
+            },
+            {
+              "value": 12,
+              "parentId": 3,
+              "label": "Spillage"
+            }
+          ]
+        },
+        {
+          "name": "photo",
+          "label": "Take a photo of the problem",
+          "type": "question",
+          "item-type": "photo",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "where",
+      "title": "Where?",
+      "navigation": [
+        {
+          "action": "back"
+        },
+        {
+          "action": "next",
+          "location": "when"
+        }
+      ],
+      "content": [
+        {
+          "name": "siteReported",
+          "label": "Site where reported?",
+          "type": "question",
+          "item-type": "select",
+          "required": true,
+          "options": [
+            {
+              "value": 1,
+              "label": "Derby"
+            },
+            {
+              "value": 2,
+              "label": "Nottingham"
+            },
+            {
+              "value": 3,
+              "label": "Leicester"
+            }
+          ]
+        },
+        {
+          "name": "locationReported",
+          "label": "Location where reported?",
+          "type": "question",
+          "item-type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "when",
+      "title": "When?",
+      "navigation": [
+        {
+          "action": "back"
+        },
+        {
+          "action": "next",
+          "location": "status"
+        }
+      ],
+      "content": [
+        {
+          "name": "dateReported",
+          "label": "Date reported?",
+          "type": "question",
+          "item-type": "date",
+          "required": true
+        },
+        {
+          "name": "timeReported",
+          "label": "Time reported?",
+          "type": "question",
+          "item-type": "time",
+          "required": true
+        },
+        {
+          "name": "whenCheckboxes",
+          "label": "Please tell us a little more",
+          "type": "question",
+          "item-type": "checkbox",
+          "options": [
+            {
+              "id": 1,
+              "label": "Immediate action?"
+            },
+            {
+              "id": 2,
+              "label": "Is this a near miss?"
+            },
+            {
+              "id": 3,
+              "label": "Already reported verbally?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "title": "Status",
+      "navigation": [
+        {
+          "action": "back"
+        },
+        {
+          "action": "next",
+          "location": "complete",
+          "expressions": {
+            "location": "(status.identity == 1) ? 'details' : 'complete'"
+          }
+        }
+      ],
+      "content": [
+        {
+          "name": "furtherAction",
+          "label": "Is any further action required?",
+          "type": "question",
+          "item-type": "radio",
+          "default": 2,
+          "options": [
+            {
+              "value": 1,
+              "label": "Yes"
+            },
+            {
+              "value": 2,
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "name": "dateClosed",
+          "label": "Date closed?",
+          "type": "question",
+          "item-type": "date",
+          "required": true,
+          "expressions": {
+            "show": "status.furtherAction == 2"
+          }
+        },
+        {
+          "name": "correctiveActions",
+          "label": "Corrective actions",
+          "type": "question",
+          "item-type": "textarea",
+          "required": true,
+          "placeholder": "This is a placeholder...",
+          "expressions": {
+            "show": "status.furtherAction == 2"
+          }
+        },
+        {
+          "name": "actionsTaken",
+          "label": "What actions have you taken?",
+          "type": "question",
+          "item-type": "textarea",
+          "required": true,
+          "expressions": {
+            "show": "status.furtherAction == 1"
+          }
+        },
+        {
+          "name": "identity",
+          "label": "Do you want to tell us who you are?",
+          "type": "question",
+          "item-type": "radio",
+          "required": true,
+          "default": 2,
+          "options": [
+            {
+              "value": 1,
+              "label": "Yes"
+            },
+            {
+              "value": 2,
+              "label": "No"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "details",
+      "title": "Details",
+      "navigation": [
+        {
+          "action": "back"
+        },
+        {
+          "action": "next",
+          "location": "complete"
+        }
+      ],
+      "content": [
+        {
+          "name": "name",
+          "label": "Your Name",
+          "type": "question",
+          "item-type": "text",
+          "required": true,
+          "placeholder": "Please enter your name..."
+        },
+        {
+          "name": "companyName",
+          "label": "Company Name",
+          "type": "question",
+          "item-type": "text",
+          "required": true,
+          "placeholder": "Please enter your company name..."
+        },
+        {
+          "name": "site",
+          "label": "Your Site",
+          "type": "question",
+          "item-type": "select",
+          "required": true,
+          "options": [
+            {
+              "value": 1,
+              "label": "Derby"
+            },
+            {
+              "value": 2,
+              "label": "Nottingham"
+            },
+            {
+              "value": 3,
+              "label": "Leicester"
+            }
+          ]
+        },
+        {
+          "name": "email",
+          "label": "Your Email",
+          "type": "question",
+          "item-type": "email",
+          "required": true,
+          "placeholder": "Please enter your email address..."
+        },
+        {
+          "name": "signature",
+          "label": "Please provide your signature below",
+          "type": "question",
+          "item-type": "signature",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "complete",
+      "title": "Complete",
+      "navigation": [
+        {
+          "action": "back"
+        },
+        {
+          "action": "complete"
+        }
+      ],
+      "content": [
+        {
+          "name": "complete_content",
+          "type": "content",
+          "item-type": "html",
+          "content": "<center><h1>THANK YOU FOR NOT WALKING BY</h1><h3>YOUR COMMENTS HAVE BEEN SUBMITTED</h3></center>"
+        }
+      ]
+    }
+  ],
+  "translation": {
+    "toggle": false,
+    "data": {
+      "en_US": {},
+      "fr_FR": {
+        "what": {
+          "title": "Quoi?",
+          "tell": {
+            "label": "Que voudriez-vous à nous dire?",
+            "message": "Se il vous plaît utiliser cinq ou plusieurs mots",
+            "placeholder": "Je tiens à vous dire..."
+          },
+          "category": {
+            "label": "Se il vous plaît sélectionné une catégorie",
+            "message": "Se il vous plaît faire une sélection",
+            "options": {
+              "default": "Se il vous plaît sélectionner...",
+              "1": "sécurité",
+              "2": "santé",
+              "3": "écologique"
+            }
+          },
+          "subCategory": {
+            "label": "Se il vous plaît sélectionner une sous-catégorie",
+            "message": "Se il vous plaît faire une sélection"
+          },
+          "photo": {
+            "label": "Prenez une photo du problème"
+          }
+        }
+      },
+      "de_DE": {
+        "what": {
+          "title": "Was?",
+          "tell": {
+            "label": "Was möchten Sie uns mitteilen?",
+            "message": "Bitte verwenden Sie 5 oder mehr Wörter",
+            "placeholder": "Ich möchte Ihnen sagen..."
+          },
+          "category": {
+            "label": "Bitte ausgewählten Kategorie",
+            "message": "Treffen Sie eine Auswahl",
+            "options": {
+              "default": "Bitte wählen...",
+              "1": "Sicherheit",
+              "2": "Gesundheit",
+              "3": "Umwelt-"
+            }
+          },
+          "subCategory": {
+            "label": "Bitte wählen Sie eine Unterkategorie",
+            "message": "Treffen Sie eine Auswahl",
+            "options": {
+              "default": "@:what.what_form.category.options.default"
+            }
+          },
+          "photo": {
+            "label": "Machen Sie ein Foto des Problems"
+          }
+        }
+      }
+    }
+  }
+}

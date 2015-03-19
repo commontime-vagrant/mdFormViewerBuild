@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>mDesign Form Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" ng-if="$root.themeName" ng-href="assets/css/themes/{{$root.themeName}}.css" />
+    <link rel="stylesheet" href="assets/css/styles.min.css"/>
+</head>
+<body md-app="config.json" ng-cloak></body>
+<!-- ASSETS -->
+<script src="assets.min.js"></script>
+
+<!-- MODULES -->
+<script src="app.min.js"></script>
+
+<!-- mDesign Cordova -->
+<script type="text/javascript" src="/mdesign/0/resources/1/cordova/android/cordova.js"></script>
+<script type="text/javascript" src="/mdesign/0/resources/1/cordova/iphone/cordova.js"></script>
+<script type="text/javascript" src="/mdesign/0/resources/1/cordova/wp/cordova.js"></script>
+<script type="text/javascript" src="/mdesign/0/resources/1/cordova/windows8/cordova.js"></script>
+<!-- Cordova -->
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+</html>
